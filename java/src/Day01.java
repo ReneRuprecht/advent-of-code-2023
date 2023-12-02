@@ -3,15 +3,15 @@ import util.FileReadHelper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class Day01 {
     public static void main(String[] args) {
-        ;
-        List<String> input1 = FileReadHelper.readFile("input1.txt");
+        List<String> input1 = FileReadHelper.readFile("input/day01/input1.txt");
         int result1 = solve1(input1);
         System.out.printf("Result: %s%n", result1);
 
-        List<String> input2 = FileReadHelper.readFile("input2.txt");
+        List<String> input2 = FileReadHelper.readFile("input/day01/input2.txt");
         int result2 = solve2(input2);
         System.out.printf("Result: %s%n", result2);
     }
@@ -19,6 +19,7 @@ public class Day01 {
     // Two Pointer
     public static int solve1(List<String> lines) {
 
+        long startTime = System.nanoTime();
         int sum = 0;
         for (String line : lines) {
             String num1 = "0";
@@ -38,11 +39,14 @@ public class Day01 {
             sum += Integer.parseInt(num1 + num2);
 
         }
+        System.out.printf("ms: %s\n",
+                          TimeUnit.MILLISECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS));
         return sum;
     }
 
     // sliding window
     public static int solve2(List<String> lines) {
+        long startTime = System.nanoTime();
         HashMap<String, Integer> numMap = new HashMap<>() {
             {
                 put("one", 1);
@@ -115,6 +119,8 @@ public class Day01 {
             }
             sum += Integer.parseInt(num1 + num2);
         }
+        System.out.printf("ms: %s\n",
+                          TimeUnit.MILLISECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS));
         return sum;
     }
 
