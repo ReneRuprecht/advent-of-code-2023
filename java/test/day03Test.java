@@ -18,7 +18,7 @@ class Day03Test {
     @Test
     void solve2() {
         List<String> input2 = FileReadHelper.readFile("input/day03/test_input2.txt");
-        int result = Day03.solve1(input2);
+        int result = Day03.solve2(input2);
 
         assertEquals(467835, result);
     }
