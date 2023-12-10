@@ -18,6 +18,10 @@ class Day04Test {
 
     @Test
     void solve2() {
-        assertEquals(1, 2);
+        List<String> lines = FileReadHelper.readFile("input/day04/test_input2.txt");
+
+        int result = Day04.solve2(lines);
+
+        assertEquals(30, result);
     }
 }
