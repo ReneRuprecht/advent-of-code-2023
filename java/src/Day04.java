@@ -69,9 +69,7 @@ public class Day04 {
     public static int solve2(List<String> lines) {
 
         long startTime = System.nanoTime();
-        int sum = 0;
 
-        HashMap<Integer, Integer> finalCards = new HashMap<>();
         HashMap<Integer, Integer> cardHolder = new HashMap<>();
 
         int currentCard = 0;
@@ -98,26 +96,26 @@ public class Day04 {
                       }
                   });
 
-            int counter = 0;
+            int matchCounter = 0;
             for (Integer num : myNums) {
                 if (!winningNums.contains(num)) continue;
-                counter++;
+                matchCounter++;
             }
 
 
-            int cardFromHolder = 0;
+            int numOfCurrentCards = 0;
             // check if card is in cardholder
             if (cardHolder.containsKey(currentCard)) {
-                cardFromHolder = cardHolder.get(currentCard);
+                numOfCurrentCards = cardHolder.get(currentCard);
             }
 
-            // add current card into final card
-            finalCards.put(currentCard, 1 + cardFromHolder);
+            // add current card into holder
+            cardHolder.put(currentCard, 1 + numOfCurrentCards);
 
             // contains the amount to add for each match
-            int valueToAdd = finalCards.get(currentCard);
+            int valueToAdd = cardHolder.get(currentCard);
 
-            for (int i = currentCard + 1; i <= currentCard + counter; i++) {
+            for (int i = currentCard + 1; i <= currentCard + matchCounter; i++) {
 
                 if (cardHolder.containsKey(i)) {
                     cardHolder.put(i, cardHolder.get(i) + valueToAdd);
@@ -128,14 +126,13 @@ public class Day04 {
 
         }
 
-        sum = finalCards.values()
-                        .stream()
-                        .reduce(0, Integer::sum);
-
 
         System.out.printf("ms: %s\n",
                           TimeUnit.MILLISECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS));
-        return sum;
+
+        return cardHolder.values()
+                         .stream()
+                         .reduce(0, Integer::sum);
     }
 
 
